@@ -1,11 +1,13 @@
 import React from "react";
 import TrelloCard from "./TrelloCard";
 
-function TrelloList({ title }) {
+function TrelloList({ title, cards }) {
   return (
     <div style={styles.container}>
       <h2>{title}</h2>
-      <TrelloCard />
+      {cards.map(card => (
+        <TrelloCard text={card.text} />
+      ))}
     </div>
   );
 }
