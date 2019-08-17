@@ -6,12 +6,21 @@ function App({ lists }) {
   return (
     <div className="App">
       <h2>Hello User</h2>
-      {lists.map(list => {
-        return <TrelloList title={list.title} cards={list.cards} />;
-      })}
+      <div style={styles.listContainer}>
+        {lists.map(list => {
+          return <TrelloList title={list.title} cards={list.cards} />;
+        })}
+      </div>
     </div>
   );
 }
+
+const styles = {
+  listContainer: {
+    display: "flex",
+    flexDirection: "row"
+  }
+};
 
 const mapStateToProps = state => ({
   lists: state.lists
