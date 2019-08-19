@@ -6,7 +6,7 @@ function TrelloList({ title, cards }) {
     <div style={styles.container}>
       <h2>{title}</h2>
       {cards.map(card => (
-        <TrelloCard text={card.text} />
+        <TrelloCard key={card.id} text={card.text} />
       ))}
     </div>
   );

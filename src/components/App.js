@@ -8,7 +8,9 @@ function App({ lists }) {
       <h2>Hello User</h2>
       <div style={styles.listContainer}>
         {lists.map(list => {
-          return <TrelloList title={list.title} cards={list.cards} />;
+          return (
+            <TrelloList key={list.id} title={list.title} cards={list.cards} />
+          );
         })}
       </div>
     </div>
