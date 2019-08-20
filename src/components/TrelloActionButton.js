@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Icon, Card, Button } from "@material-ui/core";
 import Textarea from "react-textarea-autosize";
+import { connect } from "react-redux";
+import { addList, addCard } from "../actions";
 
-function TrelloActionButton({ list }) {
+function TrelloActionButton({ list, dispatch, listId }) {
   const [formOpen, setFormOpen] = useState(false);
   const [text, setText] = useState("");
 
@@ -15,6 +17,22 @@ function TrelloActionButton({ list }) {
 
   const handleInputChange = event => {
     setText(event.target.value);
+  };
+
+  const handleAddList = () => {
+    if (text) {
+      dispatch(addList(text));
+      setText("");
+    }
+    return;
+  };
+
+  const handleAddCard = () => {
+    if (text) {
+      dispatch(addCard(listId, text));
+      setText("");
+    }
+    return;
   };
 
   const renderAddButton = () => {
@@ -42,7 +60,11 @@ function TrelloActionButton({ list }) {
           />
         </Card>
         <div style={styles.formButtonGroup}>
-          <Button variant="contained" style={styles.addButton}>
+          <Button
+            variant="contained"
+            style={styles.addButton}
+            onMouseDown={list ? handleAddList : handleAddCard}
+          >
             {buttonTitle}
           </Button>
           <Icon style={styles.closeButton}>close</Icon>
@@ -55,13 +77,6 @@ function TrelloActionButton({ list }) {
 }
 
 const styles = {
-  //   actionButton: list => {
-  //     return {
-  //       opacity: list ? 1 : 0.5,
-  //       color: list ? "white" : "inherit",
-  //       backgroundColor: list ? "rgba(0,0,0,.15)" : "inherit"
-  //     };
-  //   },
   openFormButtonGroup: list => {
     return {
       opacity: list ? 1 : 0.5,
@@ -105,4 +120,4 @@ const styles = {
   }
 };
 
-export default TrelloActionButton;
+export default connect()(TrelloActionButton);

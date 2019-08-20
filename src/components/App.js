@@ -10,7 +10,12 @@ function App({ lists }) {
       <div style={styles.listContainer}>
         {lists.map(list => {
           return (
-            <TrelloList key={list.id} title={list.title} cards={list.cards} />
+            <TrelloList
+              key={list.id}
+              listId={list.id}
+              title={list.title}
+              cards={list.cards}
+            />
           );
         })}
         <TrelloActionButton list />

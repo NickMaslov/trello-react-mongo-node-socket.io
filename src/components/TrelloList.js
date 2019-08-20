@@ -2,14 +2,14 @@ import React from "react";
 import TrelloCard from "./TrelloCard";
 import TrelloActionButton from "./TrelloActionButton";
 
-function TrelloList({ title, cards }) {
+function TrelloList({ title, cards, listId }) {
   return (
     <div style={styles.container}>
       <h2>{title}</h2>
       {cards.map(card => (
         <TrelloCard key={card.id} text={card.text} />
       ))}
-      <TrelloActionButton />
+      <TrelloActionButton listId={listId} />
     </div>
   );
 }
