@@ -3,34 +3,34 @@ import { CONSTANTS } from "../actions";
 const initialState = [
   {
     title: "Last Episode",
-    id: 0,
+    id: "list-0",
     cards: [
       {
-        id: 0,
+        id: "card-0-0",
         text:
           "we created a static list and a static cardwe created a static list and a static cardwe created a static list and a static card"
       },
       {
-        id: 1,
+        id: "card-0-1",
         text: "We used React and Materisl UI"
       }
     ]
   },
   {
     title: "Next Episode",
-    id: 1,
+    id: "list-1",
     cards: [
       {
-        id: 0,
+        id: "card-1-0",
         text:
           "we created a static list and a static cardwe created a static list and a static cardwe created a static list and a static card"
       },
       {
-        id: 1,
+        id: "card-1-1",
         text: "We used React and Materisl UI"
       },
       {
-        id: 2,
+        id: "card-1-2",
         text: "We used React and Materisl UI in next Episode"
       }
     ]
@@ -43,7 +43,7 @@ const listsReducer = (state = initialState, action) => {
       const newList = {
         title: action.payload,
         cards: [],
-        id: state.length
+        id: `list-${state.length}`
       };
       return [...state, newList];
     case CONSTANTS.ADD_CARD:
@@ -51,7 +51,7 @@ const listsReducer = (state = initialState, action) => {
         if (list.id === action.payload.listId) {
           const newCard = {
             text: action.payload.text,
-            id: list.cards.length
+            id: `card-${list.id}-${list.cards.length}`
           };
           return {
             ...list,
