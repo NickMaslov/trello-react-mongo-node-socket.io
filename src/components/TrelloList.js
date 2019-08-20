@@ -1,7 +1,7 @@
 import React from "react";
 import TrelloCard from "./TrelloCard";
 import TrelloActionButton from "./TrelloActionButton";
-import { Droppable } from "react-beautiful-dnd";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
 const ListContainer = styled.div`
@@ -13,37 +13,37 @@ const ListContainer = styled.div`
   margin-right: 8px;
 `;
 
-function TrelloList({ title, cards, listId }) {
+function TrelloList({ title, cards, listId, index }) {
   return (
-    <Droppable droppableId={`${listId}`}>
+    <Draggable draggableId={`${listId}`} index={index}>
       {provided => (
-        <ListContainer {...provided.droppableProps} ref={provided.innerRef}>
-          <h2>{title}</h2>
-          {cards.map((card, index) => (
-            <TrelloCard
-              key={card.id}
-              text={card.text}
-              id={card.id}
-              index={index}
-            />
-          ))}
+        <ListContainer
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <Droppable droppableId={`${listId}`}>
+            {provided => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                <h2>{title}</h2>
+                {cards.map((card, index) => (
+                  <TrelloCard
+                    key={card.id}
+                    text={card.text}
+                    id={card.id}
+                    index={index}
+                  />
+                ))}
+                {provided.placeholder}
+                <TrelloActionButton listId={listId} />
+              </div>
+            )}
+          </Droppable>
           {provided.placeholder}
-          <TrelloActionButton listId={listId} />
         </ListContainer>
       )}
-    </Droppable>
+    </Draggable>
   );
 }
-
-// const styles = {
-//   container: {
-//     backgroundColor: "#dfe3e6",
-//     borderRadius: 3,
-//     width: 300,
-//     padding: 8,
-//     height: "100%",
-//     marginRight: 8
-//   }
-// };
 
 export default TrelloList;
